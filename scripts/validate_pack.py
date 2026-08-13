@@ -14,7 +14,9 @@ try:
 except ModuleNotFoundError as exc:  # pragma: no cover - Python version guard
     raise SystemExit("Python 3.11 or newer is required") from exc
 
-ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+ROOT = REPO_ROOT / "plugins" / "jamaica-command-center"
+MARKETPLACE = REPO_ROOT / ".agents" / "plugins" / "marketplace.json"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 AGENT_NAME_RE = re.compile(r"^[a-z][a-z0-9_]*$")
 REQUIRED_PREVIEW = ("Recommendation", "What I'll do", "Approval")
@@ -39,6 +41,7 @@ SECRET_PATTERNS = {
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
+    parser.add_argument("--marketplace", type=Path, default=MARKETPLACE)
     return parser.parse_args()
 
 
@@ -116,6 +119,35 @@ def validate_manifest(root: Path, errors: list[str]) -> None:
         errors.append(f"{path}: skills path must be ./skills/")
 
 
+def validate_marketplace(path: Path, root: Path, errors: list[str]) -> None:
+    try:
+        marketplace = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:  # noqa: BLE001
+        errors.append(f"{path}: invalid JSON: {exc}")
+        return
+    if marketplace.get("name") != "jamaica-tools":
+        errors.append(f"{path}: marketplace name must be jamaica-tools")
+    if marketplace.get("interface", {}).get("displayName") != "Jamaica Tools":
+        errors.append(f"{path}: marketplace display name must be Jamaica Tools")
+    entries = marketplace.get("plugins")
+    if not isinstance(entries, list) or len(entries) != 1:
+        errors.append(f"{path}: expected exactly one plugin entry")
+        return
+    entry = entries[0]
+    expected_path = "./plugins/jamaica-command-center"
+    if entry.get("name") != root.name:
+        errors.append(f"{path}: plugin entry name must match the plugin folder")
+    if entry.get("source") != {"source": "local", "path": expected_path}:
+        errors.append(f"{path}: source must point to {expected_path}")
+    if entry.get("policy") != {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL",
+    }:
+        errors.append(f"{path}: plugin policy is invalid")
+    if entry.get("category") != "Productivity":
+        errors.append(f"{path}: plugin category must be Productivity")
+
+
 def validate_skills(root: Path, errors: list[str]) -> None:
     skills = sorted((root / "skills").glob("*/SKILL.md"))
     if not skills:
@@ -181,7 +213,7 @@ def validate_agents(root: Path, errors: list[str]) -> None:
 
 
 def validate_contract(root: Path, errors: list[str]) -> None:
-    agents_text = (root / "AGENTS.md").read_text(encoding="utf-8")
+    agents_text = (REPO_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     full_pilot = (root / "skills" / "run-full-pilot" / "SKILL.md").read_text(encoding="utf-8")
     outreach = (root / "skills" / "run-outreach" / "SKILL.md").read_text(encoding="utf-8")
     calls = (root / "skills" / "assist-calls" / "SKILL.md").read_text(encoding="utf-8")
@@ -216,12 +248,13 @@ def validate_contract(root: Path, errors: list[str]) -> None:
         errors.append("run-full-pilot: task-scoped expiry rule is missing")
 
 
-def scan_public_files(root: Path, errors: list[str]) -> None:
-    runtime = root / "runtime"
-    if runtime.exists():
-        errors.append(f"{runtime}: private runtime directory must not be in the public source pack")
+def scan_public_files(repo_root: Path, plugin_root: Path, errors: list[str]) -> None:
+    runtime_paths = (repo_root / "runtime", plugin_root / "runtime")
+    for runtime in runtime_paths:
+        if runtime.exists():
+            errors.append(f"{runtime}: private runtime directory must not be in the public source pack")
     allowed_suffixes = {".md", ".json", ".yaml", ".yml", ".toml", ".py", ".txt", ""}
-    for path in root.rglob("*"):
+    for path in repo_root.rglob("*"):
         if not path.is_file() or ".git" in path.parts or "__pycache__" in path.parts:
             continue
         if path.suffix.lower() not in allowed_suffixes:
@@ -233,13 +266,15 @@ def scan_public_files(root: Path, errors: list[str]) -> None:
 
 
 def main() -> None:
-    root = parse_args().root.resolve()
+    args = parse_args()
+    root = args.root.resolve()
     errors: list[str] = []
+    validate_marketplace(args.marketplace.resolve(), root, errors)
     validate_manifest(root, errors)
     validate_skills(root, errors)
     validate_agents(root, errors)
     validate_contract(root, errors)
-    scan_public_files(root, errors)
+    scan_public_files(REPO_ROOT, root, errors)
     if errors:
         print("Jamaica Command Center validation failed:")
         for error in errors:

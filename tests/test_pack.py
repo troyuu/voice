@@ -8,7 +8,8 @@ import unittest
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[1]
+ROOT = REPO_ROOT / "plugins" / "jamaica-command-center"
 TRACKER = ROOT / "skills" / "learn-workflows" / "scripts" / "track_workflow.py"
 
 
@@ -20,6 +21,26 @@ class PackContractTests(unittest.TestCase):
         content = self.read("skills/jamaica-command-center/SKILL.md")
         for field in ("**Recommendation:**", "**What I'll do:**", "**Approval:**"):
             self.assertIn(field, content)
+
+    def test_marketplace_exposes_the_plugin(self) -> None:
+        marketplace = json.loads(
+            (REPO_ROOT / ".agents" / "plugins" / "marketplace.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual(marketplace["name"], "jamaica-tools")
+        self.assertEqual(len(marketplace["plugins"]), 1)
+        entry = marketplace["plugins"][0]
+        self.assertEqual(entry["name"], "jamaica-command-center")
+        self.assertEqual(entry["source"]["path"], "./plugins/jamaica-command-center")
+        self.assertEqual(entry["policy"]["installation"], "AVAILABLE")
+
+    def test_readme_has_a_friendly_desktop_install_prompt(self) -> None:
+        content = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("Install Jamaica Command Center", content)
+        self.assertIn("codex plugin marketplace add troyuu/voice", content)
+        self.assertIn("all seven skills", content)
+        self.assertIn("official Computer Use plugin is installed and enabled", content)
 
     def test_normal_mode_requires_external_action_approval(self) -> None:
         content = self.read("skills/jamaica-command-center/references/authority-and-safety.md")

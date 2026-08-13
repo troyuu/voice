@@ -1,5 +1,6 @@
 # Jamaica's private local state
 runtime/
+plugins/jamaica-command-center/runtime/
 
 # Local caches and test output
 __pycache__/
