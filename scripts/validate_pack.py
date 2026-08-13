@@ -193,14 +193,25 @@ def validate_contract(root: Path, errors: list[str]) -> None:
     for term in ALWAYS_PAUSE_TERMS:
         if term not in agents_text:
             errors.append(f"AGENTS.md: missing approval boundary {term}")
-    if "Full Pilot: <named outcome>" not in agents_text or "materially changes" not in agents_text:
-        errors.append("AGENTS.md: Full Pilot activation or expiry rule is missing")
+    pilot_requirements = (
+        "whether or not she says `Full Pilot`",
+        "direct completion commands",
+        "show me first",
+        "materially changes",
+    )
+    for requirement in pilot_requirements:
+        if requirement not in agents_text:
+            errors.append(f"AGENTS.md: missing Pilot intent rule: {requirement}")
     if "always require one explicit approval" not in outreach:
         errors.append("run-outreach: exact batch approval rule is missing")
     if "say **Ready** before every dial" not in calls:
         errors.append("assist-calls: Ready-before-dial rule is missing")
     if "third substantially similar successful task" not in learning:
         errors.append("learn-workflows: three-success trigger is missing")
+    if "explicit `Full Pilot:` phrase is sufficient but never required" not in full_pilot:
+        errors.append("run-full-pilot: inferred Pilot activation rule is missing")
+    if "explicit review-before-action instruction override inferred autonomy" not in full_pilot:
+        errors.append("run-full-pilot: normal-mode override rule is missing")
     if "Do not persist authority across tasks or chats" not in full_pilot:
         errors.append("run-full-pilot: task-scoped expiry rule is missing")
 

@@ -43,8 +43,8 @@ Use [references/message-templates.md](references/message-templates.md) for commo
 Before an external send, verify the recipient, channel, subject, attachments, names, dates, numbers, links, tone, and commitments.
 
 - **Normal mode:** Show the final recipient and message and ask Jamaica to approve the send.
-- **Full Pilot:** Send a routine individual message within the named task after verifying it. Pause when the content is sensitive, unusual, binding, or materially different from the preview.
-- **Any mode:** Route a group or list to `$run-outreach`; Full Pilot never waives its batch approval.
+- **Pilot mode:** Send a routine individual message within the named task after verifying it. This includes a clear command such as `send this email`; no magic phrase is required. Pause when the content is sensitive, unusual, binding, or materially different from the preview.
+- **Any mode:** Route a group or list to `$run-outreach`; Pilot mode never waives its batch approval.
 
 After sending, verify the app reports success. Never say `sent` for a draft or an unverified click.
 

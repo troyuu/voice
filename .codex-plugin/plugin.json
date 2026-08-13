@@ -1,6 +1,6 @@
 {
   "name": "jamaica-command-center",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A friendly command center that helps Jamaica communicate, manage office work, pilot approved apps, and turn repeated tasks into reviewed workflows.",
   "author": {
     "name": "Jamaica Command Center contributors",
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Jamaica Command Center",
     "shortDescription": "Friendly help for messages, calls, and office work.",
-    "longDescription": "Jamaica Command Center recommends a clear approach, explains what it will do in plain language, completes routine work, and pauses at important approval boundaries. It includes focused workflows for messages, outreach, calls, office tasks, Full Pilot control, and safe workflow learning.",
+    "longDescription": "Jamaica Command Center recommends a clear approach, explains what it will do in plain language, completes clearly delegated routine work, and pauses at important approval boundaries. It includes focused workflows for messages, outreach, calls, office tasks, task-scoped Pilot control, and safe workflow learning.",
     "developerName": "Jamaica Command Center contributors",
     "category": "Productivity",
     "capabilities": [
@@ -29,7 +29,7 @@
     "defaultPrompt": [
       "Help me handle today's messages and tell me what you recommend first.",
       "Prepare me for this call and help with the follow-up.",
-      "Full Pilot: organize today's office follow-ups."
+      "Take care of today's office follow-ups for me."
     ]
   }
 }

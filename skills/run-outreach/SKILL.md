@@ -1,6 +1,6 @@
 ---
 name: run-outreach
-description: Prepare, validate, personalize, approve, send, and report a bulk email, SMS, or messaging campaign for Jamaica. Use whenever one message or template will contact a group, client list, supplier list, owner list, or other batch of recipients; always require one explicit approval for each final batch, including in Full Pilot mode.
+description: Prepare, validate, personalize, approve, send, and report a bulk email, SMS, or messaging campaign for Jamaica. Use whenever one message or template will contact a group, client list, supplier list, owner list, or other batch of recipients; always require one explicit approval for each final batch, including in explicit or inferred Pilot mode.
 ---
 
 # Run Outreach
@@ -30,7 +30,7 @@ Show one final approval card containing:
 - schedule and expected send rate;
 - opt-out handling and any material risk.
 
-Ask Jamaica to approve this exact batch. Full Pilot does not replace this approval. Any material change to audience, content, sender, channel, link, attachment, or schedule invalidates the approval and requires a new preview.
+Ask Jamaica to approve this exact batch. Pilot mode, whether explicit or inferred, does not replace this approval. Any material change to audience, content, sender, channel, link, attachment, or schedule invalidates the approval and requires a new preview.
 
 ## Send and report
 

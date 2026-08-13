@@ -26,16 +26,26 @@ class PackContractTests(unittest.TestCase):
         for action in ("sending", "dialing", "publishing", "deleting"):
             self.assertIn(action, content)
 
-    def test_full_pilot_is_explicit_and_task_scoped(self) -> None:
+    def test_pilot_mode_can_be_inferred_and_is_task_scoped(self) -> None:
         content = self.read("skills/run-full-pilot/SKILL.md")
-        self.assertIn("Activate only from `Full Pilot: <named outcome>`", content)
+        self.assertIn("explicit `Full Pilot:` phrase is sufficient but never required", content)
+        self.assertIn("send this email", content)
+        self.assertIn("handle this", content)
         self.assertIn("Do not persist authority across tasks or chats", content)
         self.assertIn("materially expands or changes", content)
+
+    def test_preparation_and_review_requests_stay_normal(self) -> None:
+        content = self.read("skills/run-full-pilot/SKILL.md")
+        self.assertIn("Do not activate when Jamaica requests advice", content)
+        self.assertIn("review-before-action instruction override inferred autonomy", content)
+        examples = self.read("skills/run-full-pilot/references/pilot-intent-examples.md")
+        self.assertIn("Draft this email and show me before sending", examples)
+        self.assertIn("Draft only", examples)
 
     def test_bulk_campaign_always_needs_batch_approval(self) -> None:
         content = self.read("skills/run-outreach/SKILL.md")
         self.assertIn("always require one explicit approval for each final batch", content)
-        self.assertIn("Full Pilot does not replace this approval", content)
+        self.assertIn("Pilot mode, whether explicit or inferred, does not replace this approval", content)
 
     def test_calls_require_ready_and_jamaica_speaks(self) -> None:
         content = self.read("skills/assist-calls/SKILL.md")

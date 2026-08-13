@@ -29,7 +29,7 @@ Include:
 - trigger examples and non-triggers;
 - required inputs and source of truth;
 - steps, output, and completion check;
-- normal and Full Pilot approval boundaries;
+- normal and Pilot-mode approval boundaries;
 - privacy rules and missing-tool behavior;
 - sample-only positive, negative, and hostile-content tests.
 

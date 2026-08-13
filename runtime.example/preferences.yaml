@@ -4,7 +4,7 @@ communication:
   words_to_avoid: []
 approvals:
   normal_mode: "confirm external actions"
-  full_pilot_phrase: "Full Pilot:"
+  pilot_mode: "infer from clear end-to-end delegation and state the scope in the preview"
 calls:
   jamaica_is_speaker: true
   ready_phrase: "Ready"

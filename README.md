@@ -10,7 +10,7 @@ It helps with:
 - Approved bulk outreach
 - Call preparation, dialing assistance, notes, outcomes, and follow-ups
 - Calendar, CRM, browser, data-entry, file, and research tasks
-- Task-scoped computer control through **Full Pilot**
+- Task-scoped computer control through explicit or inferred **Pilot mode**
 - Turning repeated work into reviewed skills or specialist agent teams
 
 ## What Jamaica can say
@@ -24,7 +24,7 @@ Prepare me for my call with this supplier. When I say Ready, open the call.
 ```
 
 ```text
-Full Pilot: update today's confirmed appointments in the CRM and calendar.
+Take care of today's confirmed appointments in the CRM and calendar.
 ```
 
 The assistant starts with:
@@ -44,8 +44,10 @@ Routine work then continues automatically. Important actions still pause for Jam
 - The assistant uses plain language and asks only one question at a time.
 - Recommendations help Jamaica decide; they never silently replace her instruction.
 - Normal mode asks before sending, dialing, submitting, publishing, or deleting.
-- `Full Pilot: <named outcome>` allows routine actions for one named task.
-- Full Pilot does not bypass passwords, security prompts, payments, contracts, permissions, destructive actions, privacy, consent, or other high-risk boundaries.
+- Jamaica does not need a magic phrase. Clear completion commands such as `send this email`, `schedule the meeting`, or `update the CRM`, and instructions such as `handle this`, `take care of it`, `do what is needed`, or `finish this for me`, allow routine actions for that one task.
+- The preview says when the assistant is treating a request as Pilot mode and names the outcome it will own.
+- Requests for advice, a draft, a review, preparation, or `show me first` remain in normal mode. If Jamaica asks to review before an action, that instruction overrides inferred Pilot mode.
+- Pilot mode does not bypass passwords, security prompts, payments, contracts, permissions, destructive actions, privacy, consent, or other high-risk boundaries.
 - Every bulk outreach batch needs one final approval.
 - Every live call needs Jamaica to say **Ready** before dialing; Jamaica remains the speaker.
 

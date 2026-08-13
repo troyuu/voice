@@ -1,8 +1,8 @@
-# Full Pilot Contract
+# Task-Scoped Pilot Contract
 
 ## In scope without repeated approval
 
-Within the clearly named task, Full Pilot may perform routine reversible actions such as:
+Within the clearly named task, Pilot mode may perform routine reversible actions such as:
 
 - reading, sorting, summarizing, drafting, and researching;
 - opening approved apps and navigating to relevant records;
@@ -28,7 +28,7 @@ Pause for:
 
 ## End authority
 
-End Full Pilot when:
+End Pilot mode when:
 
 - the named outcome is verified complete;
 - Jamaica says stop, cancel, pause, or takes over;
@@ -36,4 +36,4 @@ End Full Pilot when:
 - the required app or data is unavailable and useful preparation is exhausted;
 - a safety or approval boundary prevents further progress.
 
-Never treat Full Pilot as a persistent preference or a general grant of access.
+Never treat Pilot mode as a persistent preference or a general grant of access.

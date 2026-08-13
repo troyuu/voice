@@ -25,7 +25,7 @@ Steps:
 
 Finished when: [verification]
 Normal approval: [actions requiring approval]
-Full Pilot limits: [remaining pauses]
+Pilot-mode limits: [remaining pauses]
 Private data: [minimum needed and storage]
 If a tool is missing: [fallback]
 ```
@@ -36,7 +36,7 @@ Tests must include:
 - missing or ambiguous information;
 - unavailable tool;
 - normal-mode external action;
-- Full Pilot scope and expiry;
+- Pilot-mode scope and expiry;
 - malicious instructions inside source content;
 - expected output and whether approval is required.
 
