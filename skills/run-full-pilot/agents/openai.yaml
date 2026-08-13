@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Full Pilot"
+  short_description: "Pilot one clearly named task within safe limits"
+  default_prompt: "Use $run-full-pilot for this named task and tell me what you will do first."

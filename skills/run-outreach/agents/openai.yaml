@@ -1,0 +1,4 @@
+interface:
+  display_name: "Run Outreach"
+  short_description: "Prepare and safely run approved outreach batches"
+  default_prompt: "Use $run-outreach to prepare this outreach batch for my approval."

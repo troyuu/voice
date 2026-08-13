@@ -1,0 +1,4 @@
+interface:
+  display_name: "Assist Calls"
+  short_description: "Prepare calls, notes, outcomes, and follow-ups"
+  default_prompt: "Use $assist-calls to help me prepare for and complete this call."

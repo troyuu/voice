@@ -1,0 +1,7 @@
+# Copy this file to runtime/profile.yaml and fill in only what Jamaica wants saved.
+preferred_name: "Jamaica"
+timezone: ""
+working_hours: ""
+languages: []
+company_name: ""
+role: ""

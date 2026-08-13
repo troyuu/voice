@@ -1,0 +1,7 @@
+# Add friendly app names only. Never put passwords, tokens, or API keys here.
+email: ""
+calendar: ""
+calling: ""
+crm: ""
+browser: ""
+files: ""

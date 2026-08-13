@@ -1,0 +1,10 @@
+communication:
+  tone: "warm, confident, concise, and professional"
+  sign_off: ""
+  words_to_avoid: []
+approvals:
+  normal_mode: "confirm external actions"
+  full_pilot_phrase: "Full Pilot:"
+calls:
+  jamaica_is_speaker: true
+  ready_phrase: "Ready"

@@ -1,0 +1,9 @@
+# Jamaica's private local state
+runtime/
+
+# Local caches and test output
+__pycache__/
+*.py[cod]
+.DS_Store
+.pytest_cache/
+.coverage

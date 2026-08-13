@@ -1,0 +1,4 @@
+interface:
+  display_name: "Manage Messages"
+  short_description: "Draft and organize clear professional messages"
+  default_prompt: "Use $manage-messages to help me handle these emails or text messages."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learn Workflows"
+  short_description: "Turn repeated work into reviewed reusable workflows"
+  default_prompt: "Use $learn-workflows to propose a safe reusable workflow for this repeated task."

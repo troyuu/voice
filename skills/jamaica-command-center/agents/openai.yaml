@@ -1,0 +1,4 @@
+interface:
+  display_name: "Jamaica Command Center"
+  short_description: "Friendly guidance and task routing for Jamaica"
+  default_prompt: "Use $jamaica-command-center to recommend the best approach and help me complete this task."

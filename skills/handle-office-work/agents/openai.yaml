@@ -1,0 +1,4 @@
+interface:
+  display_name: "Handle Office Work"
+  short_description: "Complete calendar, CRM, file, and browser tasks"
+  default_prompt: "Use $handle-office-work to recommend and complete this office task."
