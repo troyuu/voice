@@ -8,3 +8,6 @@ __pycache__/
 .DS_Store
 .pytest_cache/
 .coverage
+
+# Keep local environment backups and credential files out of Git.
+.env.pre-*
