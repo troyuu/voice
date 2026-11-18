@@ -1,0 +1,4 @@
+interface:
+  display_name: "voice"
+  short_description: "Help with messages, calls, and everyday office work"
+  default_prompt: "Use $voice to recommend the best approach and help me complete this task."

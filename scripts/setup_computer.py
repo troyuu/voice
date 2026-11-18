@@ -12,11 +12,11 @@ from urllib.request import urlopen
 
 
 REPO = Path(__file__).resolve().parents[1]
-NAME = "jamaica-command-center"
-MARKET = "jamaica-tools"
+NAME = "voice"
+MARKET = "voice-tools"
 PACKAGE = REPO / "plugins" / NAME
 BRIDGE = PACKAGE / "integrations/hermes/bridge.py"
-VERSION = "0.3.1"
+VERSION = "0.4.0"
 PIN = "bf0203a794a07aac3ff764972ab9087baa4e4f4e"
 HERMES_HOME = Path.home() / ".local/share" / NAME / "hermes-home"
 
@@ -80,7 +80,7 @@ def check_plugin(codex):
     rows = run(codex, "plugin", "list", "--marketplace", MARKET, "--json", capture=True)["installed"]
     if not any(r["pluginId"] == f"{NAME}@{MARKET}" and r["version"] == VERSION and
                r.get("installed") and r.get("enabled") for r in rows):
-        raise SystemExit(f"Jamaica Command Center {VERSION} must be installed and enabled before verification.")
+        raise SystemExit(f"voice {VERSION} must be installed and enabled before verification.")
 
 
 def install_plugin(codex):
@@ -91,9 +91,9 @@ def install_plugin(codex):
     else:
         source = store.get("marketplaceSource", {})
         if source.get("sourceType") != "git" or source.get("source", "").removesuffix(".git") != "https://github.com/troyuu/voice":
-            raise SystemExit("Jamaica Tools already points to another folder. Use its verified release checkout or review the source with Jamaica.")
+            raise SystemExit("voice tools already points to another folder. Use its verified release checkout or review the source with the user.")
         if not (REPO / ".git").exists():
-            raise SystemExit("The existing marketplace uses GitHub. Keep it unchanged and ask Jamaica before switching it to the supplied local folder.")
+            raise SystemExit("The existing marketplace uses GitHub. Keep it unchanged and ask the user before switching it to the supplied local folder.")
         run(codex, "plugin", "marketplace", "upgrade", MARKET)
         manifest = Path(store["root"]) / "plugins" / NAME / ".codex-plugin/plugin.json"
         if json.loads(manifest.read_text())["version"] != VERSION:
@@ -121,10 +121,10 @@ def main():
         ensure_hermes()
         install_plugin(codex)
         run(uv, "run", "--script", str(BRIDGE), "setup")
-        print("Installed. Continue with the login step in Jamaica's own terminal, then verify.")
+        print("Installed. Continue with the login step in the user's own terminal, then verify.")
     elif step == "login":
         if not sys.stdin.isatty():
-            raise SystemExit("Open this login step in Jamaica's interactive terminal.")
+            raise SystemExit("Open this login step in the user's interactive terminal.")
         run(uv, "run", "--script", str(BRIDGE), "login", "all")
     else:
         check_plugin(codex)

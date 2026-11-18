@@ -17,7 +17,7 @@ class InstallerTests(unittest.TestCase):
             if args[1:3] == ("plugin", "add"):
                 return {"version": setup.VERSION, "installedPath": str(setup.PACKAGE)}
             if args[1:3] == ("plugin", "list"):
-                return {"installed": [{"pluginId": "jamaica-command-center@jamaica-tools",
+                return {"installed": [{"pluginId": "voice@voice-tools",
                         "version": setup.VERSION, "installed": True, "enabled": True}]}
 
         with patch.object(setup, "run", side_effect=fake_codex):

@@ -1,6 +1,6 @@
-# Jamaica's private local state
+# the user's private local state
 runtime/
-plugins/jamaica-command-center/runtime/
+plugins/voice/runtime/
 
 # Local caches and test output
 __pycache__/

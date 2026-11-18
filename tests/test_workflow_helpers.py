@@ -4,6 +4,7 @@ import ast
 import io
 import json
 import os
+import runpy
 from pathlib import Path
 import subprocess
 import sys
@@ -13,7 +14,7 @@ import unittest
 from unittest.mock import patch
 import uuid
 
-SCRIPTS = Path(__file__).resolve().parents[1] / "plugins/jamaica-command-center/skills/learn-workflows/scripts"
+SCRIPTS = Path(__file__).resolve().parents[1] / "plugins/voice/skills/learn-workflows/scripts"
 sys.path.insert(0, str(SCRIPTS))
 import helper_agent as helper
 import track_workflow as tracker
@@ -44,6 +45,22 @@ class WorkflowHelpers(unittest.TestCase):
 
     def stage(self):
         return self.cli(*self.draft_args, "--requested")
+
+    def test_os_users_start_unnamed_with_separate_default_histories(self):
+        profile = helper.PACKAGE / "runtime.example/profile.yaml"
+        self.assertIn('preferred_name: ""', profile.read_text(encoding="utf-8").splitlines())
+        base = self.history.parent.parent
+
+        def run_for(account, *args):
+            out = io.StringIO()
+            with patch.object(Path, "home", return_value=base / account), \
+                 patch.object(sys, "argv", ["tracker", *args, "--workflow-id", self.slug]), redirect_stdout(out):
+                runpy.run_path(str(SCRIPTS / "track_workflow.py"), run_name="__main__")
+            return json.loads(out.getvalue())
+
+        run_for("account-one", "record", "--success", "--run-id", str(uuid.uuid4()))
+        self.assertEqual(run_for("account-two", "status")["successful_runs"], 0)
+        self.assertEqual(run_for("account-one", "status")["successful_runs"], 1)
 
     def sample_report(self, draft, failed=None):
         # Synthetic fixture for testing the report gate, not a live behavioral evaluation.
@@ -77,7 +94,7 @@ class WorkflowHelpers(unittest.TestCase):
     def test_direct_request_creates_task_specific_private_definition_without_count(self):
         draft = self.stage()
         definition = tomllib.loads(Path(draft["draft"]).read_text())
-        self.assertEqual(definition["name"], "jamaica_task_supplier_reminders")
+        self.assertEqual(definition["name"], "voice_task_supplier_reminders")
         self.assertEqual(definition["sandbox_mode"], "read-only")
         self.assertIn("Flag missing due dates", definition["developer_instructions"])
         self.assertIn(f'role "{self.role}"', definition["developer_instructions"])

@@ -1,14 +1,14 @@
 {
-  "name": "jamaica-tools",
+  "name": "voice-tools",
   "interface": {
-    "displayName": "Jamaica Tools"
+    "displayName": "voice tools"
   },
   "plugins": [
     {
-      "name": "jamaica-command-center",
+      "name": "voice",
       "source": {
         "source": "local",
-        "path": "./plugins/jamaica-command-center"
+        "path": "./plugins/voice"
       },
       "policy": {
         "installation": "AVAILABLE",

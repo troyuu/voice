@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the portable Jamaica Command Center source package."""
+"""Validate the portable voice source package."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ except ModuleNotFoundError as exc:  # pragma: no cover - Python version guard
     raise SystemExit("Python 3.11 or newer is required") from exc
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-ROOT = REPO_ROOT / "plugins" / "jamaica-command-center"
+ROOT = REPO_ROOT / "plugins" / "voice"
 MARKETPLACE = REPO_ROOT / ".agents" / "plugins" / "marketplace.json"
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 AGENT_NAME_RE = re.compile(r"^[a-z][a-z0-9_]*$")
@@ -125,16 +125,16 @@ def validate_marketplace(path: Path, root: Path, errors: list[str]) -> None:
     except Exception as exc:  # noqa: BLE001
         errors.append(f"{path}: invalid JSON: {exc}")
         return
-    if marketplace.get("name") != "jamaica-tools":
-        errors.append(f"{path}: marketplace name must be jamaica-tools")
-    if marketplace.get("interface", {}).get("displayName") != "Jamaica Tools":
-        errors.append(f"{path}: marketplace display name must be Jamaica Tools")
+    if marketplace.get("name") != "voice-tools":
+        errors.append(f"{path}: marketplace name must be voice-tools")
+    if marketplace.get("interface", {}).get("displayName") != "voice tools":
+        errors.append(f"{path}: marketplace display name must be voice tools")
     entries = marketplace.get("plugins")
     if not isinstance(entries, list) or len(entries) != 1:
         errors.append(f"{path}: expected exactly one plugin entry")
         return
     entry = entries[0]
-    expected_path = "./plugins/jamaica-command-center"
+    expected_path = "./plugins/voice"
     if entry.get("name") != root.name:
         errors.append(f"{path}: plugin entry name must match the plugin folder")
     if entry.get("source") != {"source": "local", "path": expected_path}:
@@ -169,7 +169,7 @@ def validate_skills(root: Path, errors: list[str]) -> None:
         todo_marker = "[" + "TODO:"
         if todo_marker in path.read_text(encoding="utf-8"):
             errors.append(f"{path}: contains an unfinished placeholder")
-        if path.parent.name == "jamaica-command-center":
+        if path.parent.name == "voice":
             for heading in REQUIRED_PREVIEW:
                 if heading not in body:
                     errors.append(f"{path}: missing preview field {heading}")
@@ -184,12 +184,12 @@ def validate_skills(root: Path, errors: list[str]) -> None:
 def validate_agents(root: Path, errors: list[str]) -> None:
     agents = sorted((root / ".codex" / "agents").glob("*.toml"))
     expected = {
-        "communications_specialist",
-        "call_specialist",
-        "operations_specialist",
-        "research_specialist",
-        "workflow_designer",
-        "risk_reviewer",
+        "voice_communications_specialist",
+        "voice_call_specialist",
+        "voice_operations_specialist",
+        "voice_research_specialist",
+        "voice_workflow_designer",
+        "voice_risk_reviewer",
     }
     found: set[str] = set()
     for path in agents:
@@ -226,7 +226,7 @@ def validate_contract(root: Path, errors: list[str]) -> None:
         if term not in agents_text:
             errors.append(f"AGENTS.md: missing approval boundary {term}")
     pilot_requirements = (
-        "whether or not she says `Full Pilot`",
+        "whether or not the user says `Full Pilot`",
         "direct completion commands",
         "show me first",
         "materially changes",
@@ -276,7 +276,7 @@ def main() -> None:
     validate_contract(root, errors)
     scan_public_files(REPO_ROOT, root, errors)
     if errors:
-        print("Jamaica Command Center validation failed:")
+        print("voice validation failed:")
         for error in errors:
             print(f"- {error}")
         raise SystemExit(1)

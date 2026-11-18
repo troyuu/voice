@@ -1,0 +1,10 @@
+communication:
+  tone: "warm, confident, concise, and professional"
+  sign_off: ""
+  words_to_avoid: []
+approvals:
+  normal_mode: "confirm external actions"
+  pilot_mode: "infer from clear end-to-end delegation and state the scope in the preview"
+calls:
+  user_is_speaker: true
+  ready_phrase: "Ready"

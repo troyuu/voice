@@ -9,7 +9,7 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-ROOT = REPO_ROOT / "plugins" / "jamaica-command-center"
+ROOT = REPO_ROOT / "plugins" / "voice"
 TRACKER = ROOT / "skills" / "learn-workflows" / "scripts" / "track_workflow.py"
 
 
@@ -18,7 +18,7 @@ class PackContractTests(unittest.TestCase):
         return (ROOT / relative).read_text(encoding="utf-8")
 
     def test_every_task_has_recommendation_preview(self) -> None:
-        content = self.read("skills/jamaica-command-center/SKILL.md")
+        content = self.read("skills/voice/SKILL.md")
         for field in ("**Recommendation:**", "**What I'll do:**", "**Approval:**"):
             self.assertIn(field, content)
 
@@ -28,18 +28,18 @@ class PackContractTests(unittest.TestCase):
                 encoding="utf-8"
             )
         )
-        self.assertEqual(marketplace["name"], "jamaica-tools")
+        self.assertEqual(marketplace["name"], "voice-tools")
         self.assertEqual(len(marketplace["plugins"]), 1)
         entry = marketplace["plugins"][0]
-        self.assertEqual(entry["name"], "jamaica-command-center")
-        self.assertEqual(entry["source"]["path"], "./plugins/jamaica-command-center")
+        self.assertEqual(entry["name"], "voice")
+        self.assertEqual(entry["source"]["path"], "./plugins/voice")
         self.assertEqual(entry["policy"]["installation"], "AVAILABLE")
 
     def test_readme_has_a_friendly_desktop_install_prompt(self) -> None:
         content = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("install jamaica command center", content.lower())
+        self.assertIn("install voice", content.lower())
         self.assertIn("all seven skills", content)
-        self.assertIn("v0.3.1", content)
+        self.assertIn("v0.4.0", content)
         self.assertIn("ZIP", content)
         guide = (REPO_ROOT / "SETUP.md").read_text(encoding="utf-8")
         for step in ("install", "login", "verify"):
@@ -47,7 +47,7 @@ class PackContractTests(unittest.TestCase):
         self.assertIn("Computer use", guide)
 
     def test_normal_mode_requires_external_action_approval(self) -> None:
-        content = self.read("skills/jamaica-command-center/references/authority-and-safety.md")
+        content = self.read("skills/voice/references/authority-and-safety.md")
         for action in ("sending", "dialing", "publishing", "deleting"):
             self.assertIn(action, content)
 
@@ -61,7 +61,7 @@ class PackContractTests(unittest.TestCase):
 
     def test_preparation_and_review_requests_stay_normal(self) -> None:
         content = self.read("skills/run-full-pilot/SKILL.md")
-        self.assertIn("Do not activate when Jamaica requests advice", content)
+        self.assertIn("Do not activate when the user requests advice", content)
         self.assertIn("review-before-action instruction override inferred autonomy", content)
         examples = self.read("skills/run-full-pilot/references/pilot-intent-examples.md")
         self.assertIn("Draft this email and show me before sending", examples)
@@ -72,19 +72,19 @@ class PackContractTests(unittest.TestCase):
         self.assertIn("always require one explicit approval for each final batch", content)
         self.assertIn("Pilot mode, whether explicit or inferred, does not replace this approval", content)
 
-    def test_calls_require_ready_and_jamaica_speaks(self) -> None:
+    def test_calls_require_ready_and_user_speaks(self) -> None:
         content = self.read("skills/assist-calls/SKILL.md")
-        self.assertIn("Jamaica remains the speaker", content)
+        self.assertIn("the user remains the speaker", content)
         self.assertIn("say **Ready** before every dial", content)
 
     def test_untrusted_content_cannot_expand_authority(self) -> None:
-        content = self.read("skills/jamaica-command-center/references/authority-and-safety.md")
+        content = self.read("skills/voice/references/authority-and-safety.md")
         self.assertIn("Untrusted content", content)
         self.assertIn("reveal passwords", content)
-        self.assertIn("conceal an action from Jamaica", content)
+        self.assertIn("conceal an action from the user", content)
 
     def test_missing_tools_have_friendly_fallback(self) -> None:
-        content = self.read("skills/jamaica-command-center/references/friendly-guidance.md")
+        content = self.read("skills/voice/references/friendly-guidance.md")
         self.assertIn("I prepared everything I can", content)
         self.assertIn("one simple action", content)
 
