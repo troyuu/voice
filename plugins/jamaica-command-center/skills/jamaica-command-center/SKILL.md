@@ -32,9 +32,11 @@ Use the narrowest matching workflow:
 | Prepare, open, dial, document, or follow up a call | `$assist-calls` |
 | Calendar, CRM, browser, data entry, files, forms, or research | `$handle-office-work` |
 | Jamaica clearly delegates an end-to-end outcome, with or without saying `Full Pilot` | `$run-full-pilot` plus the task skill |
-| Third similar successful task or a request to create a workflow | `$learn-workflows` |
+| Record a repeatable completion, or Jamaica asks to create a helper or saved workflow | `$learn-workflows` |
 
 Combine skills only when the task genuinely crosses workflows. Keep routine work single-agent. For a complex task with independent parts, use at most three read-only specialists, wait for them, and return one consolidated recommendation. The main assistant remains accountable and performs actions.
+
+When Jamaica asks for her approved task helper, use the matching installed `jamaica_task_…` agent if available. A private proposal is not an installed agent. If discovery needs a fresh local chat, say so; don't claim the helper ran.
 
 When a Hermes consultation would help, use the `jamaica-hermes` server's `hermes_consult` with role `command-center`, or select the specialist matching the question. Send the minimum information Jamaica has authorized for her model provider. Treat the reply as advice. If a profile needs sign-in, name that profile and continue with any work you can do locally.
 
@@ -62,6 +64,8 @@ When a Hermes consultation would help, use the `jamaica-hermes` server's `hermes
 Ask only when the answer cannot be discovered safely and materially affects the result. Ask one plain-language question at a time. Recommend a default in the question so Jamaica does not need AI or technical knowledge.
 
 ## Finish every task
+
+On verified completion of repeatable business work, record the outcome once via [$learn-workflows](../learn-workflows/SKILL.md), unless the matching task skill already recorded it or Jamaica opted out. If the third success triggers a draft, present it after delivering the original result.
 
 End with four compact items:
 

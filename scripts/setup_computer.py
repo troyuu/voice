@@ -1,4 +1,4 @@
-"""Install the cloned release locally. Use 'login' and 'verify' to finish onboarding."""
+"""Install an extracted release folder locally. Use 'login' and 'verify' to finish onboarding."""
 import argparse
 import hashlib
 import json
@@ -16,7 +16,7 @@ NAME = "jamaica-command-center"
 MARKET = "jamaica-tools"
 PACKAGE = REPO / "plugins" / NAME
 BRIDGE = PACKAGE / "integrations/hermes/bridge.py"
-VERSION = "0.3.0"
+VERSION = "0.3.1"
 PIN = "bf0203a794a07aac3ff764972ab9087baa4e4f4e"
 HERMES_HOME = Path.home() / ".local/share" / NAME / "hermes-home"
 
@@ -80,7 +80,7 @@ def check_plugin(codex):
     rows = run(codex, "plugin", "list", "--marketplace", MARKET, "--json", capture=True)["installed"]
     if not any(r["pluginId"] == f"{NAME}@{MARKET}" and r["version"] == VERSION and
                r.get("installed") and r.get("enabled") for r in rows):
-        raise SystemExit("Jamaica Command Center 0.3.0 must be installed and enabled before verification.")
+        raise SystemExit(f"Jamaica Command Center {VERSION} must be installed and enabled before verification.")
 
 
 def install_plugin(codex):
@@ -92,6 +92,8 @@ def install_plugin(codex):
         source = store.get("marketplaceSource", {})
         if source.get("sourceType") != "git" or source.get("source", "").removesuffix(".git") != "https://github.com/troyuu/voice":
             raise SystemExit("Jamaica Tools already points to another folder. Use its verified release checkout or review the source with Jamaica.")
+        if not (REPO / ".git").exists():
+            raise SystemExit("The existing marketplace uses GitHub. Keep it unchanged and ask Jamaica before switching it to the supplied local folder.")
         run(codex, "plugin", "marketplace", "upgrade", MARKET)
         manifest = Path(store["root"]) / "plugins" / NAME / ".codex-plugin/plugin.json"
         if json.loads(manifest.read_text())["version"] != VERSION:
@@ -99,10 +101,13 @@ def install_plugin(codex):
     installed = run(codex, "plugin", "add", f"{NAME}@{MARKET}", "--json", capture=True)
     cache = Path(installed["installedPath"])
     skill_paths = {f.relative_to(PACKAGE) for f in (PACKAGE / "skills").glob("*/SKILL.md")}
+    helper_files = {Path("skills/learn-workflows/scripts/track_workflow.py"),
+                    Path("skills/learn-workflows/scripts/helper_agent.py"),
+                    Path("integrations/hermes/check_connection.py")}
     if installed.get("version") != VERSION or len(skill_paths) != 7 or any(
-        not (cache / p).is_file() or (cache / p).read_bytes() != (PACKAGE / p).read_bytes() for p in skill_paths
+        not (cache / p).is_file() or (cache / p).read_bytes() != (PACKAGE / p).read_bytes() for p in skill_paths | helper_files
     ):
-        raise SystemExit("The installed skills differ from the seven in this release.")
+        raise SystemExit("The installed skills or helper files differ from this release.")
     check_plugin(codex)
 
 

@@ -48,4 +48,6 @@ Before an external send, verify the recipient, channel, subject, attachments, na
 
 After sending, verify the app reports success. Never say `sent` for a draft or an unverified click.
 
+If you own final verification of a repeatable business task, use the completion rule in [$learn-workflows](../learn-workflows/SKILL.md) once for the whole outcome. If another skill or the parent owns completion, leave recording to it.
+
 Finish with **Result**, **Completed**, **Waiting for you**, and one useful **Next recommendation**.

@@ -38,4 +38,6 @@ After approval, send the complete batch through an authorized connector or appro
 
 Report verified totals for attempted, sent, delivered when known, failed, skipped, and opted out. Never retry uncertain recipients in a way that may duplicate a message. Preserve failure details privately and do not expose the full contact list in chat unless Jamaica asks and it is appropriate.
 
+If you own final verification of a repeatable business task, use the completion rule in [$learn-workflows](../learn-workflows/SKILL.md) once for the whole outcome. If another skill or the parent owns completion, leave recording to it.
+
 Finish with **Result**, **Completed**, **Waiting for you**, and one useful **Next recommendation**.

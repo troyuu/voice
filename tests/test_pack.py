@@ -37,9 +37,10 @@ class PackContractTests(unittest.TestCase):
 
     def test_readme_has_a_friendly_desktop_install_prompt(self) -> None:
         content = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Install Jamaica Command Center", content)
+        self.assertIn("install jamaica command center", content.lower())
         self.assertIn("all seven skills", content)
-        self.assertIn("v0.3.0", content)
+        self.assertIn("v0.3.1", content)
+        self.assertIn("ZIP", content)
         guide = (REPO_ROOT / "SETUP.md").read_text(encoding="utf-8")
         for step in ("install", "login", "verify"):
             self.assertIn(f"scripts/setup_computer.py {step}", guide)

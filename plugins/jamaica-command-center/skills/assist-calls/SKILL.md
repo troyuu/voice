@@ -45,4 +45,6 @@ Classify the outcome as `reached`, `voicemail`, `no answer`, `busy`, `wrong numb
 
 Draft the follow-up message from confirmed outcomes only. Apply `$manage-messages` before sending.
 
+If you own final verification of a repeatable business task, use the completion rule in [$learn-workflows](../learn-workflows/SKILL.md) once for the whole outcome. If another skill or the parent owns completion, leave recording to it.
+
 Finish with **Result**, **Completed**, **Waiting for you**, and one useful **Next recommendation**.

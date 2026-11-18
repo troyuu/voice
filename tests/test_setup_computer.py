@@ -15,14 +15,23 @@ class InstallerTests(unittest.TestCase):
             if args[1:4] == ("plugin", "marketplace", "list"):
                 return {"marketplaces": []}
             if args[1:3] == ("plugin", "add"):
-                return {"version": "0.3.0", "installedPath": str(setup.PACKAGE)}
+                return {"version": setup.VERSION, "installedPath": str(setup.PACKAGE)}
             if args[1:3] == ("plugin", "list"):
                 return {"installed": [{"pluginId": "jamaica-command-center@jamaica-tools",
-                        "version": "0.3.0", "installed": True, "enabled": True}]}
+                        "version": setup.VERSION, "installed": True, "enabled": True}]}
 
         with patch.object(setup, "run", side_effect=fake_codex):
             setup.install_plugin("codex")
         self.assertIn(("plugin", "marketplace", "add"), calls)
+
+    def test_zip_install_never_refreshes_a_remote_project_copy(self):
+        with tempfile.TemporaryDirectory() as folder:
+            store = {"name": setup.MARKET, "root": str(Path(folder) / "older"),
+                     "marketplaceSource": {"sourceType": "git", "source": "https://github.com/troyuu/voice.git"}}
+            with patch.object(setup, "REPO", Path(folder)), patch.object(setup, "run", return_value={"marketplaces": [store]}) as runner:
+                with self.assertRaisesRegex(SystemExit, "supplied local folder"):
+                    setup.install_plugin("codex")
+                self.assertEqual(runner.call_count, 1)
 
     def test_foreign_marketplace_is_preserved(self):
         with tempfile.TemporaryDirectory() as other:

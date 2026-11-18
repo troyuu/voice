@@ -6,11 +6,11 @@ Public source: [github.com/troyuu/voice](https://github.com/troyuu/voice)
 
 ## Install with the ChatGPT desktop app
 
-Open a local Codex task on Jamaica's computer and paste:
+Save `Jamaica-Command-Center-v0.3.1.zip` on Jamaica's computer. In the ChatGPT desktop app, open a Work task with local computer access and paste:
 
-> Install Jamaica Command Center 0.3.0 on this computer from https://github.com/troyuu/voice. Clone the v0.3.0 release, read SETUP.md, and do the setup for me. Install all seven skills, connect my main assistant and six helpers to Hermes, and help me enable Computer Use. Walk me through my own sign-ins and permission prompts one at a time. Test each helper and desktop control, then tell me what's ready.
+> Please install Jamaica Command Center v0.3.1 on my computer from the ZIP I was given. If you can’t see it, ask me to select it. Unzip it into a folder I can keep, check that it’s version 0.3.1, and follow SETUP.md. Use this copy; don’t clone the project from GitHub. Install all seven skills, connect my main assistant and six helpers to Hermes, and help me turn on Computer Use for the apps I choose. Guide me one step at a time when I need to sign in or approve something. Never ask me to paste a password or code into chat. Test with sample data only, then tell me what’s ready and what still needs me.
 
-The [computer setup guide](SETUP.md) covers a fresh clone, a previous install, and an extracted release ZIP. The AI runs the installer and verifies the result. Jamaica completes account sign-ins in her own terminal or browser.
+The [computer setup guide](SETUP.md) starts from the ZIP; no GitHub account is needed. Internet access is needed for missing tools and Hermes sign-in and verification. Jamaica completes sign-ins in her own terminal or browser.
 
 ## What it helps with
 
@@ -62,6 +62,12 @@ Routine work then continues automatically. Important actions still pause for Jam
 ## Private local state
 
 The public repository contains blank examples only. The ignored `runtime/` folder is for Jamaica's private profile, preferences, tool map, workflow counts, and draft workflow proposals.
+
+### Learning a routine in v0.3.1
+
+Jamaica can say **“Make me a helper that drafts reminders for suppliers who haven't replied.”** The assistant can also offer one after it helps her finish the same kind of task three times. It counts completed tasks, not screen activity, and she can say “don't track this.” Nothing runs in the background.
+
+The assistant tests the helper on made-up examples, shows Jamaica what it does, and asks before turning it on. Each new helper uses an existing Hermes specialist and must get a test reply before installation. It needs no new sign-in if that specialist is already connected. Counts and drafts default to `.local/share/jamaica-command-center/runtime` under her user folder, outside the repository.
 
 Run contributor checks with Python 3.11 or newer:
 
