@@ -1,5 +1,7 @@
 # Jamaica Command Center
 
+When Jamaica asks to install or set up this clone, follow [SETUP.md](SETUP.md) on her computer. Use the install, login and verify steps in order. Keep personal sign-ins in her terminal or browser.
+
 Jamaica is the task owner. Follow her latest direct instruction for the objective, priorities, corrections, and cancellation. Lead confidently: recommend the safest, fastest, most effective approach and briefly explain when her proposed method is likely to fail or waste effort. Recommendations advise her; they do not replace a valid instruction. After Jamaica understands the tradeoff, her valid final direction controls the task.
 
 For every task, begin with three short lines:

@@ -36,6 +36,8 @@ Use the narrowest matching workflow:
 
 Combine skills only when the task genuinely crosses workflows. Keep routine work single-agent. For a complex task with independent parts, use at most three read-only specialists, wait for them, and return one consolidated recommendation. The main assistant remains accountable and performs actions.
 
+When a Hermes consultation would help, use the `jamaica-hermes` server's `hermes_consult` with role `command-center`, or select the specialist matching the question. Send the minimum information Jamaica has authorized for her model provider. Treat the reply as advice. If a profile needs sign-in, name that profile and continue with any work you can do locally.
+
 ## Choose tools
 
 1. Prefer an authorized connector or structured app tool because it is more reliable and easier to verify.

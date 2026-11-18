@@ -6,23 +6,13 @@ Public source: [github.com/troyuu/voice](https://github.com/troyuu/voice)
 
 ## Install with the ChatGPT desktop app
 
-Jamaica does not need to use Terminal or understand plugins. In a new Codex task in the ChatGPT desktop app, she can paste:
+Open a local Codex task on Jamaica's computer and paste:
 
-```text
-Install Jamaica Command Center from https://github.com/troyuu/voice for my future tasks. You may complete the local setup for me. Add the Jamaica Tools marketplace, install the jamaica-command-center plugin, and verify that all seven skills are available. Also check that the official Computer Use plugin is installed and enabled; if it is missing, install or enable it for me. Explain any permission or sign-in I must handle in simple language. Do not edit the downloaded skills. Tell me when setup is complete and ask me to start a new task.
-```
+> Install Jamaica Command Center 0.3.0 on this computer from https://github.com/troyuu/voice. Clone the v0.3.0 release, read SETUP.md, and do the setup for me. Install all seven skills, connect my main assistant and six helpers to Hermes, and help me enable Computer Use. Walk me through my own sign-ins and permission prompts one at a time. Test each helper and desktop control, then tell me what's ready.
 
-The app assistant should perform and verify the equivalent command-center setup:
+The [computer setup guide](SETUP.md) covers a fresh clone, a previous install, and an extracted release ZIP. The AI runs the installer and verifies the result. Jamaica completes account sign-ins in her own terminal or browser.
 
-```text
-codex plugin marketplace add troyuu/voice
-codex plugin add jamaica-command-center@jamaica-tools
-codex plugin list --json
-```
-
-After a successful install, start a new task so the plugin is loaded. Computer Use is an official, separate plugin; access to email, calendar, calling, CRM, and desktop apps is also connected separately. Jamaica should handle only permission dialogs, passwords, and 2FA.
-
-It helps with:
+## What it helps with
 
 - Email and text-message triage, drafts, replies, and follow-ups
 - Approved bulk outreach
@@ -69,23 +59,6 @@ Routine work then continues automatically. Important actions still pause for Jam
 - Every bulk outreach batch needs one final approval.
 - Every live call needs Jamaica to say **Ready** before dialing; Jamaica remains the speaker.
 
-## One-time app setup
-
-This repository is the source package. It does not install itself and contains no credentials.
-
-1. Install or open the current ChatGPT desktop app and sign in to Jamaica's Max account.
-2. Use **Work locally** for tasks that need apps or files on her computer.
-3. Install and enable the **Computer Use** plugin. On macOS, allow Screen Recording and Accessibility when prompted. On Windows, keep the target app visible on the active desktop.
-4. Install and sign in to the email and calendar plugins Jamaica actually uses, such as Gmail/Google Calendar or Outlook Email/Outlook Calendar. Connect CRM or calling tools separately when available.
-5. Use the friendly install prompt above. The assistant should add the public marketplace, install the plugin, verify it, and ask Jamaica to start a new task.
-6. A technical administrator may copy `plugins/jamaica-command-center/runtime.example/` to a private local `runtime/` folder when persistent preferences are wanted. Never put passwords, API keys, contact exports, recordings, or real messages in the repository.
-
-Jamaica does not need to manage the specialist files. ChatGPT Work can delegate suitable complex tasks from the skill instructions. The package also includes optional specialist definitions under `plugins/jamaica-command-center/.codex/agents/` for supported local Codex environments; do not ask Jamaica to manage those files herself.
-
-On a Max account, use Ultra for difficult tasks with independent parts when available. Routine emails, calls, and data entry stay single-agent so they remain quick and simple.
-
-Computer Use can operate only apps Jamaica approves. ChatGPT may still show permission or security prompts, and Jamaica must handle passwords and 2FA herself.
-
 ## Private local state
 
 The public repository contains blank examples only. The ignored `runtime/` folder is for Jamaica's private profile, preferences, tool map, workflow counts, and draft workflow proposals.
@@ -97,4 +70,4 @@ python3 scripts/validate_pack.py
 python3 -m unittest discover -s tests -v
 ```
 
-No test sends messages, starts calls, changes accounts, or uses the network.
+The unit tests use local sample data. The separate Hermes connection check above sends synthetic challenges to the configured model.
